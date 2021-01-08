@@ -2,7 +2,26 @@ import java.io.*;
 import java.util.Random;
 import java.util.ArrayList;
 
-// Use DisjointSents data scrtucture to randomly generate a maze that has only one solution path
+/*
+Uses DisjointSets data structure to randomly generate a maze where there is
+exactly one path between any two cells.
+
+Command line arguments indicate whether the maze wall data should be output
+in a text file or in standard output stream.
+
+The first line of output is:
+maze <R> <C>
+where R and C specify the number of rows and columns respectively
+
+Each of the following lines consists of two integers, for example:
+0 1
+Both of these integers indicate whether the wall of a cell is present.
+A nonzero integer indicates the wall is present; a zero indicates the wall is not present.
+The first number refers to the right wall of the cell; the second number refers to the bottom wall of the cell.
+There should be R*C lines that follow the first line.
+The cells in the top row appear first, going left to right, followed by cells in the second row from the top from left to right,
+and so on, ending with the bottom row.
+*/
 
 public class MazeGen {
     
@@ -71,10 +90,8 @@ public class MazeGen {
             }
         }
 
-        // Output maze to file
         PrintStream out;
-        
-        // Check if the output should go to a file or standard out
+        // Check if the output wall data should go to a text file or standard out
         if (args.length < 3 || args[2].equals("-")) {
             out = System.out;
         } else {
@@ -90,7 +107,7 @@ public class MazeGen {
         // Output the header line
         out.println("maze " + rows + " " + cols);
         
-        // Output the cell walls of the maze
+        // Output the wall data for every cell in the maze
         for (int cell = 0; cell < maze.numElements(); cell++) {
             // If the current cell does not have a right wall, print 0.  Otherwise print 1.
             if ((cell+1) % cols != 0) {
