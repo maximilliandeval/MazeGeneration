@@ -5,8 +5,10 @@ import java.util.NoSuchElementException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-/* Takes generated wall data (from stdin or text file)
-and cleanly displays the resulting maze in a new window */
+/* 
+Takes generated wall data (from stdin or text file)
+and cleanly displays the resulting maze in a new window 
+*/
 
 public class MazeView implements Runnable {
 
