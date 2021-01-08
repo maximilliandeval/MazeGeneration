@@ -15,5 +15,6 @@ After compiling all files, you can invoke the program with:
 where R and C are positive integers indicating the number of rows and columns.
 
 
-20x30 Maze Example:
+
+As an example, here is the generated output display for a 20x30 maze:
 ![Alt text](example.png?raw=true)
