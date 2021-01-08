@@ -1,5 +1,10 @@
 import java.util.*;
 
+/*
+Disjoint-Set data structure
+Uses the weighted quick-union with path compression implementation
+*/
+
 public class DisjointSets<T> {
 
     private HashMap<T, T> parents = new HashMap<T, T>();
@@ -18,12 +23,14 @@ public class DisjointSets<T> {
         return count;
     }
 
+    // Add a new element in a disjoint singleton set
     public void insert(T item) {
         parents.put(item, item);
         ranks.put(item, 0);
         count++;
     }
 
+    // Identify the set to which an element belongs
     public T find(T item) {
         T parent = parents.get(item);
         if (parent == null) return null;
@@ -34,6 +41,8 @@ public class DisjointSets<T> {
         return parent;
     }
 
+    // Given two elements, union the sets of which they are a part
+    // (uses weighted-union-by-rank)
     public boolean union(T item1, T item2) {
         T parent1 = find(item1);
         T parent2 = find(item2);
