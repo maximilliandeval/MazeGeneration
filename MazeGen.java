@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class MazeGen {
     
     public static void main(String[] args) {
-        // Parse command-line arguments for the width and height
+        // Parse command-line arguments for the width and height of maze
         if (args.length < 2) {
             System.err.println("missing number of rows and/or columns");
             System.exit(1);
@@ -17,7 +17,7 @@ public class MazeGen {
         try {
             rows = Integer.parseInt(args[0]);
             cols = Integer.parseInt(args[1]);
-            // make sure dimensions are at least 1 x 1
+            // Make sure dimensions are at least 1 x 1
             if (rows < 1 || cols < 1)
                 throw new NumberFormatException();
         } catch (NumberFormatException e) {
