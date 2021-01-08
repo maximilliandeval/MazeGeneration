@@ -5,19 +5,22 @@ import java.util.NoSuchElementException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/* Takes generated wall data (from stdin or text file)
+and cleanly displays the resulting maze in a new window */
+
 public class MazeView implements Runnable {
 
     private static class MazeDraw extends JComponent {
 	private static final long serialVersionUID = 4374600290553516425L;
-	private int rows = 0, cols = 0;     // dimensions
-        private boolean[] right;      // right walls
-        private boolean[] bot;        // bottom walls
-        private String name = "MazeViewer"; // title of maze
+	private int rows = 0, cols = 0;     // Dimensions
+        private boolean[] right;      // Right walls
+        private boolean[] bot;        // Bottom walls
+        private String name = "MazeViewer"; // Title of maze
         
         // Drawing constants
-        private final int Dth = 4;  // thickness of lines
-        private final int Dsz = 14;  // size of cell
-        private final int Dmg = 10; // margin
+        private final int Dth = 4;  // Thickness of lines
+        private final int Dsz = 14;  // Size of cell
+        private final int Dmg = 10; // Margin
         
         // Utility method to convert from (row,col) to [0..w*h]
         private int onedim(int row, int col)
@@ -81,7 +84,7 @@ public class MazeView implements Runnable {
                 if (disk) scan.close();
                 throw new InputMismatchException(filename + " is empty");
             }
-    	    // Get desired maze dimensions from first line of file
+    	    // Get desired maze dimensions from the first line of input
             String[] line = scan.nextLine().split("\\s+");
             if (line.length < 3 || !(line[0].equals("maze"))) {
                 if (disk) scan.close();
@@ -98,9 +101,9 @@ public class MazeView implements Runnable {
                 if (disk) scan.close();
                 throw new InputMismatchException(String.format("%s contains a maze with non-integer dimension(s) [\"%s\" x \"%s\"]", filename, line[1], line[2]));
             }
-            
             this.name = String.format("%s: %s (%dx%d)", name, filename, rows, cols);
 
+	    // Get wall information (right and bottom) for every cell in the input
             right = new boolean[rows * cols];
             bot = new boolean[rows * cols];
             for(int i = 0; i < rows * cols; i++) {
@@ -169,7 +172,7 @@ public class MazeView implements Runnable {
     }
 
     // Thread to create a window to display the maze.
-    // Assumes a <tt>MazeDraw</tt> object has been initialized to contain the maze to display.
+    // Assumes a MazeDraw object has been initialized to contain the maze to display.
     public void run()
     {        
         if (maze == null)
