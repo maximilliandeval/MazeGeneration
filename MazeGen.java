@@ -2,57 +2,32 @@ import java.io.*;
 import java.util.Random;
 import java.util.ArrayList;
 
+// Use DisjointSents data scrtucture to randomly generate a maze that has only one solution path
 
 public class MazeGen {
     
-    /**
-     * Program entry point for maze generation.
-     * Will generate a random maze in maze-file format.
-     * <b><i>Usage:</i></b>  <tt>java MazeGen rows cols [filename]</tt>
-     * <blockquote>
-     * <tt>rows</tt>: the number of rows desired (vertical dimension), must be &gt;=1<br>
-     * <tt>cols</tt>: the number of columns desired (horizontal dimension), must be &gt;=1<br>
-     * <tt>filename</tt>: Optional.  File in which to output the maze.  If not given
-     *     or a single hyphen, maze will be written to stdout.
-     *     </blockquote>
-     *     
-     * @param   args    command-line arguments as described above
-     */
     public static void main(String[] args) {
-
-        /* *****************
-           This section of code parses command-line arguments for the width and height
-           *****************
-        */
+        // Parse command-line arguments for the width and height
         if (args.length < 2) {
             System.err.println("missing number of rows and/or columns");
             System.exit(1);
             return;
         }
-        
         int rows, cols;
         try {
             rows = Integer.parseInt(args[0]);
             cols = Integer.parseInt(args[1]);
-            
             // make sure dimensions are at least 1 x 1
             if (rows < 1 || cols < 1)
                 throw new NumberFormatException();
-            
         } catch (NumberFormatException e) {
             System.err.println("invalid arguments for maze size (number of rows or columns)");
             System.exit(1);
             return;
         }
 
-        /* ********** End of width/height processing section ********** */
-
-
-
-
+        // MAZE GENERATION
         
-        /* ********** Maze generation ********** */
-
         // Generate a rows x cols maze where none of the cells are connected (every cell
         // has 4 walls):
         DisjointSets<Integer> maze = new DisjointSets<Integer>();
@@ -60,9 +35,9 @@ public class MazeGen {
             maze.insert(i);
         }
 
-        // This ArrayList will contain the cells that do have a wall on the right
+        // This ArrayList will contain the cells that DO have a wall on the right
         ArrayList<Integer> right = new ArrayList<Integer>();
-        // This ArrayList will contain the cells that do have a wall below it
+        // This ArrayList will contain the cells that DO have a wall below it
         ArrayList<Integer> bottom = new ArrayList<Integer>();
 
         // Now each cell must be connected by removing walls randomly until all elements are
@@ -96,16 +71,10 @@ public class MazeGen {
             }
         }
 
-        /* ********** End of maze generation ********** */
-
-
-
-
-        
-        /* ********** Output maze to file ********** */
+        // Output maze to file
         PrintStream out;
         
-        // see if the output should go to a file or standard out
+        // Check if the output should go to a file or standard out
         if (args.length < 3 || args[2].equals("-")) {
             out = System.out;
         } else {
@@ -118,10 +87,10 @@ public class MazeGen {
             }
         }
         
-        // output header line
+        // Output the header line
         out.println("maze " + rows + " " + cols);
         
-        // Output cell walls of the maze
+        // Output the cell walls of the maze
         for (int cell = 0; cell < maze.numElements(); cell++) {
             // If the current cell does not have a right wall, print 0.  Otherwise print 1.
             if ((cell+1) % cols != 0) {
@@ -146,7 +115,7 @@ public class MazeGen {
             }
         }
 
-        // close output stream if it's a file
+        // Close output stream if it's a file
         if (out != System.out)
             out.close();
     }
