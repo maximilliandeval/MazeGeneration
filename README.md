@@ -13,3 +13,7 @@ The generated maze has the following properties:
 After compiling all files, you can invoke the program with:
 `java MazeGen <R> <C> | java MazeView`
 where R and C are positive integers indicating the number of rows and columns.
+
+
+20x30 Maze Example:
+![Alt text](example.png?raw=true)
