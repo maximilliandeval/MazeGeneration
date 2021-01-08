@@ -11,5 +11,4 @@ The maze has the following properties:
   * There are just enough openings between cells to allow for a way in and out of every one, but there are still a lot of walls
 
 After compiling all files, invoke the program with:
-`java MazeGen <R> <C> <FILENAME.txt>`
-R and C should be positive integers indicating the number of rows and columns. The third optional argument is the name of a file in which to store the maze output. If there is no third argument, or the third argument is a single hyphen, the maze output will be printed to standard output.
+`java MazeGen <R> <C> <FILENAME.txt>`.  R and C should be positive integers indicating the number of rows and columns. The third optional argument is the name of a file in which to store the maze output. If there is no third argument, or the third argument is a single hyphen, the maze output will be printed to standard output.
