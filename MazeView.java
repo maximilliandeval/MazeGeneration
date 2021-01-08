@@ -7,10 +7,9 @@ import java.util.Scanner;
 
 public class MazeView implements Runnable {
 
-    private static class MazeDraw extends JComponent
-    {
-		private static final long serialVersionUID = 4374600290553516425L;
-		private int rows = 0, cols = 0;     // dimensions
+    private static class MazeDraw extends JComponent {
+	private static final long serialVersionUID = 4374600290553516425L;
+	private int rows = 0, cols = 0;     // dimensions
         private boolean[] right;      // right walls
         private boolean[] bot;        // bottom walls
         private String name = "MazeViewer"; // title of maze
@@ -56,11 +55,7 @@ public class MazeView implements Runnable {
         
         
         // Constructor
-        /**
-         * Creates a MazeDraw object to display a maze.
-         * 
-         * @param   filename    from where to read the input (or stdin if "-")
-         */
+	// Creates a MazeDraw object to display a maze
         public MazeDraw(String filename) throws InputMismatchException
         {
             super();
@@ -68,10 +63,12 @@ public class MazeView implements Runnable {
             Scanner scan;
             boolean disk = true;
             
+	    // If the parameter is "-", get input from stdin
             if (filename.equals("-")) {
                 scan = new Scanner(System.in);
                 filename = "stdin";
                 disk = false;
+	    // Otherwise, read input from the specified filepath
             } else {
                 try {
                     scan = new Scanner(new File(filename));
@@ -79,18 +76,17 @@ public class MazeView implements Runnable {
                     throw new InputMismatchException("could not open " + filename);
                 }
             }
-    
+    	    // Make sure specified file is populated
             if (!scan.hasNextLine()) {
                 if (disk) scan.close();
                 throw new InputMismatchException(filename + " is empty");
             }
-    
+    	    // Get desired maze dimensions from first line of file
             String[] line = scan.nextLine().split("\\s+");
             if (line.length < 3 || !(line[0].equals("maze"))) {
                 if (disk) scan.close();
                 throw new InputMismatchException(filename + " contains invalid maze file format");
-            }
-            
+	    }
             try {
                 rows = Integer.parseInt(line[1]);
                 cols = Integer.parseInt(line[2]);
@@ -135,27 +131,23 @@ public class MazeView implements Runnable {
         }
         
         
-        // Painting functions
-        
-        /**
-         * Draws the maze in the player window.
-         * 
-         * @param   g   display context for GUI
-         */
+        // Draws the maze in the player window
+        // Parameter g represents display context for GUI.
         public void paint(Graphics g) {
     
             super.paint(g);
             
-            // for cell drawing, ignore margins
+            // For cell drawing, ignore margins
             g.translate(Dth + Dmg, Dth + Dmg);
     
-            // draw top line
+            // Draw top line
             g.setColor(Color.black);
             g.fillRect(-Dth, -Dth, cols * Dsz + Dth, Dth);
             
-            // draw left line
+            // Draw left line
             g.fillRect(-Dth, Dsz - Dth, Dth, (rows - 1) * Dsz + Dth);
             
+	    // Draw walls
             for (int row = 0; row < rows; row++)
             {
                 for (int col = 0; col < cols; col++)
@@ -176,10 +168,8 @@ public class MazeView implements Runnable {
         this.maze = maze;
     }
 
-    /**
-     * Thread to create a window to display the maze.
-     * Assumes a <tt>MazeDraw</tt> object has been initialized to contain the maze to display.
-     */
+    // Thread to create a window to display the maze.
+    // Assumes a <tt>MazeDraw</tt> object has been initialized to contain the maze to display.
     public void run()
     {        
         if (maze == null)
@@ -198,13 +188,13 @@ public class MazeView implements Runnable {
     public static void main(String[] args)
     {
         String filename;
-
+	// Check if input file was specified
         if (args.length < 1) {
             filename = "-";
         } else {
             filename = args[0];
         }
-        
+        // Draw the maze
         try {
             MazeDraw m = new MazeDraw(filename);
             SwingUtilities.invokeLater(new MazeView(m));
