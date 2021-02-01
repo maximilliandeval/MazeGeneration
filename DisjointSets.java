@@ -62,6 +62,7 @@ public class DisjointSets<T> {
         int rank1 = ranks.get(parent1);
         int rank2 = ranks.get(parent2);
         // Always attach the shorter tree to the root of the taller tree
+        // (weighted-union-by-rank)
         if (rank1 < rank2) {
             parents.put(parent1, parent2);
         } else {
