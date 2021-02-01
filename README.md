@@ -1,5 +1,5 @@
 # MazeGeneration
-This program uses disjoint sets to randomly generate and display interesting maze with only one solution path.  I implemented the disjoint set data structure with weighted-union-by-rank and path compression.
+This program uses disjoint sets to randomly generate and display an interesting maze with only one solution path.  I implemented the disjoint set data structure with weighted-union-by-rank and path compression.
 
 The generated maze has the following properties:
 * There is exactly one path between any two cells. This implies:
